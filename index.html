@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon - MycopunkXYZ</title>
+    <style>
+        :root {
+            --primary-color: #D27D2D;
+            --secondary-color: #8E4A1B;
+            --accent-color: #E6B17E;
+            --background-color: #1A1006;
+            --text-color: #F5E6D8;
+            --mycelium-light: #FFC38B;
+            --mycelium-medium: #D9864D;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .mycelium-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+        
+        .mycelium-strand {
+            position: absolute;
+            background-color: var(--mycelium-light);
+            border-radius: 50px;
+            transform-origin: center;
+        }
+        
+        .container {
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            background-color: rgba(26, 16, 6, 0.7);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 0 30px rgba(210, 125, 45, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(210, 125, 45, 0.3);
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            font-family: 'Courier New', monospace;
+            letter-spacing: -1px;
+        }
+        
+        .logo span {
+            color: var(--mycelium-light);
+        }
+        
+        .tagline {
+            font-size: 1.4rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+            font-style: italic;
+        }
+        
+        .description {
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.1rem;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .feature {
+            flex: 1 1 250px;
+            padding: 1.5rem;
+            background-color: rgba(142, 74, 27, 0.2);
+            border-radius: 12px;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(226, 177, 126, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(210, 125, 45, 0.2);
+        }
+        
+        .feature:hover::before {
+            opacity: 1;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+        }
+        
+        .cta {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            color: var(--text-color);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(142, 74, 27, 0.4);
+        }
+        
+        .cta::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0), 
+                rgba(255, 255, 255, 0.2), 
+                rgba(255, 255, 255, 0));
+            transition: all 0.5s ease;
+        }
+        
+        .cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(142, 74, 27, 0.6);
+        }
+        
+        .cta:hover::after {
+            left: 100%;
+        }
+        
+        .notify-form {
+            max-width: 450px;
+            margin: 0 auto;
+            display: flex;
+        }
+        
+        .notify-input {
+            flex-grow: 1;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px 0 0 50px;
+            border: 1px solid rgba(226, 177, 126, 0.3);
+            background-color: rgba(26, 16, 6, 0.7);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+        
+        .notify-btn {
+            border-radius: 0 50px 50px 0;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            border: none;
+            padding: 0 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .notify-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .footer {
+            margin-top: 4rem;
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+        
+        .footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .countdown {
+            margin: 2.5rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgba(142, 74, 27, 0.15);
+            padding: 1.2rem;
+            border-radius: 12px;
+            min-width: 100px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(226, 177, 126, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .countdown-item::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at center, rgba(210, 125, 45, 0.1) 0%, rgba(26, 16, 6, 0) 70%);
+            z-index: -1;
+        }
+        
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-family: 'Courier New', monospace;
+        }
+        
+        .countdown-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            margin-top: 0.5rem;
+        }
+        
+        .spore {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: var(--mycelium-medium);
+            border-radius: 50%;
+            filter: blur(1px);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 8s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .wisdom {
+            position: fixed;
+            bottom: 20px;
+            color: var(--mycelium-light);
+            font-style: italic;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            font-size: 0.9rem;
+            text-align: center;
+            max-width: 80%;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .features {
+                flex-direction: column;
+            }
+            
+            .countdown {
+                flex-wrap: wrap;
+            }
+            
+            .countdown-item {
+                min-width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mycelium-bg" id="mycelium-bg"></div>
+    
+    <div class="container">
+        <h1 class="logo">myco<span>punk</span>.xyz</h1>
+        <p class="tagline">Building from beneath the surface</p>
+        
+        <p class="description">
+            A network-based approach to technology and community. Drawing inspiration from mycelial structures to create resilient systems.
+            Moving slowly and mending things.
+        </p>
+        
+        <!-- Countdown and feature cards removed as requested -->
+        
+        <a href="#" class="cta" id="cta-button">Stay Connected</a>
+        
+        <form class="notify-form" id="notify-form">
+            <input type="email" class="notify-input" placeholder="Your email address" required>
+            <button type="submit" class="notify-btn">Notify Me</button>
+        </form>
+        
+        <div class="footer">
+            <p>© 2025 MycopunkXYZ | <a href="#">Terms</a> | <a href="#">Privacy</a></p>
+            <p>Underground networks, emergent possibilities.</p>
+        </div>
+    </div>
+    
+    <div class="wisdom" id="wisdom"></div>
+
+    <script>
+        // Generate mycelium background
+        const myceliumBg = document.getElementById('mycelium-bg');
+        const numStrands = 100;
+        
+        for (let i = 0; i < numStrands; i++) {
+            createMyceliumStrand();
+        }
+        
+        function createMyceliumStrand() {
+            const strand = document.createElement('div');
+            strand.className = 'mycelium-strand';
+            
+            // Random properties
+            const startX = Math.random() * 100;
+            const startY = Math.random() * 100;
+            const length = 5 + Math.random() * 20;
+            const width = 1 + Math.random() * 3;
+            const angle = Math.random() * 360;
+            const opacity = 0.1 + Math.random() * 0.4;
+            const color = Math.random() > 0.7 ? 'var(--mycelium-medium)' : 'var(--mycelium-light)';
+            
+            strand.style.left = `${startX}vw`;
+            strand.style.top = `${startY}vh`;
+            strand.style.width = `${length}px`;
+            strand.style.height = `${width}px`;
+            strand.style.transform = `rotate(${angle}deg)`;
+            strand.style.opacity = opacity;
+            strand.style.backgroundColor = color;
+            
+            myceliumBg.appendChild(strand);
+            
+            // Branching logic
+            if (Math.random() > 0.7 && length > 10) {
+                setTimeout(() => {
+                    createBranch(startX, startY, angle);
+                }, Math.random() * 1000);
+            }
+        }
+        
+        function createBranch(x, y, parentAngle) {
+            const strand = document.createElement('div');
+            strand.className = 'mycelium-strand';
+            
+            // Branch properties
+            const branchAngle = parentAngle + (-30 + Math.random() * 60);
+            const length = 5 + Math.random() * 15;
+            const width = 1 + Math.random() * 2;
+            const opacity = 0.1 + Math.random() * 0.3;
+            
+            strand.style.left = `${x}vw`;
+            strand.style.top = `${y}vh`;
+            strand.style.width = `${length}px`;
+            strand.style.height = `${width}px`;
+            strand.style.transform = `rotate(${branchAngle}deg)`;
+            strand.style.opacity = opacity;
+            
+            myceliumBg.appendChild(strand);
+        }
+        
+        // Rising spores animation
+        function createSpores() {
+            const numSpores = 2;
+            
+            for (let i = 0; i < numSpores; i++) {
+                setTimeout(() => {
+                    const spore = document.createElement('div');
+                    spore.className = 'spore';
+                    
+                    const x = 10 + Math.random() * 80;
+                    const delay = Math.random() * 5;
+                    const duration = 8 + Math.random() * 7;
+                    
+                    spore.style.left = `${x}vw`;
+                    spore.style.bottom = '0';
+                    spore.style.animationDelay = `${delay}s`;
+                    spore.style.animationDuration = `${duration}s`;
+                    
+                    document.body.appendChild(spore);
+                    
+                    // Remove after animation completes
+                    setTimeout(() => {
+                        spore.remove();
+                    }, (delay + duration) * 1000);
+                }, Math.random() * 1000);
+            }
+        }
+        
+        // Create spores periodically
+        setInterval(createSpores, 2000);
+        
+        // Countdown timer removed as requested
+        
+        // Mushroom wisdom quotes - more understated
+        const mushroomWisdom = [
+            "Networks precede structures.",
+            "Underground connections sustain ecosystems.",
+            "Strong networks bend, they don't break.",
+            "Resilience through distributed systems.",
+            "What grows beneath the surface shapes what emerges above.",
+            "Cooperation amplifies potential.",
+            "Systems learn from mycelium.",
+            "Interconnected, adaptable, resilient.",
+            "From decomposition comes renewal.",
+            "Distributed networks outlast centralized systems."
+        ];
+        
+        const wisdomElement = document.getElementById('wisdom');
+        let currentWisdomIndex = 0;
+        
+        function showWisdom() {
+            wisdomElement.textContent = mushroomWisdom[currentWisdomIndex];
+            wisdomElement.style.opacity = '1';
+            
+            setTimeout(() => {
+                wisdomElement.style.opacity = '0';
+                
+                currentWisdomIndex = (currentWisdomIndex + 1) % mushroomWisdom.length;
+            }, 5000);
+        }
+        
+        // Show wisdom periodically
+        setInterval(showWisdom, 8000);
+        showWisdom(); // Show first wisdom immediately
+        
+        // Form submission
+        document.getElementById('notify-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            alert(`Thank you. ${email} has been added to our notification list.`);
+            e.target.reset();
+        });
+        
+        // CTA button hover effect
+        document.getElementById('cta-button').addEventListener('mouseenter', function() {
+            createSpores();
+        });
+    </script>
+</body>
+</html>
